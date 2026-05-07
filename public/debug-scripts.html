@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Debug Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .script-info { background: #f5f5f5; padding: 10px; margin: 10px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Script Debug Information</h1>
+    <div id="script-list"></div>
+    
+    <script>
+        // List all scripts on the page
+        function listScripts() {
+            const scripts = document.getElementsByTagName('script');
+            const container = document.getElementById('script-list');
+            
+            for (let i = 0; i < scripts.length; i++) {
+                const script = scripts[i];
+                const info = document.createElement('div');
+                info.className = 'script-info';
+                
+                let details = `<strong>Script ${i + 1}:</strong><br>`;
+                details += `Type: ${script.type || 'text/javascript'}<br>`;
+                
+                if (script.src) {
+                    details += `Source: ${script.src}<br>`;
+                } else {
+                    details += `Inline script<br>`;
+                }
+                
+                if (script.id) {
+                    details += `ID: ${script.id}<br>`;
+                }
+                
+                if (script.className) {
+                    details += `Class: ${script.className}<br>`;
+                }
+                
+                info.innerHTML = details;
+                container.appendChild(info);
+            }
+        }
+        
+        // Run when page loads
+        window.addEventListener('load', listScripts);
+    </script>
+</body>
+</html> 
