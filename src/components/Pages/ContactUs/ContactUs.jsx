@@ -1,13 +1,18 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import emailjs from '@emailjs/browser';
 import { TemplateOneHeader } from '../..';
 
 const ContactUs = () => {
 
+    const form = useRef();
+    const [loading, setLoading] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
+                email: '',
         phone_number: '',
-        email: '',
+
         message: ''
     });
 
@@ -18,16 +23,34 @@ const ContactUs = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission, e.g., send data to backend
-        console.log(formData);
-        // You can also reset the form here
-        setFormData({
-          first_name: '',
-          last_name: '',
-          phone_number: '',
-          email: '',
-          message: ''
-        });
+        setLoading(true);
+        setSubmitted(false);
+
+        const serviceID = 'service_yw2jbjn';
+        const templateID = 'template_rvozrm6';
+        const publicKey = '4T_HfuIpJBBOpbO0Z';
+
+        emailjs.sendForm(serviceID, templateID, form.current, publicKey)
+            .then((result) => {
+                console.log('Email successfully sent!', result.text);
+                setSubmitted(true);
+                setFormData({
+                    first_name: '',
+                    last_name: '',
+                    phone_number: '',
+                    email: '',
+                    message: ''
+                });
+                
+                // Optional: Hide success message after 5 seconds
+                setTimeout(() => setSubmitted(false), 5000);
+            }, (error) => {
+                console.error('Failed to send email:', error.text);
+                alert('Oops! Something went wrong. Please try again later.');
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     };
 
     return (
@@ -48,8 +71,22 @@ const ContactUs = () => {
                     </div>
                     <div className="row">
                         <div className="col-xl-6 col-lg-9 col-md-12 mx-auto">
-                        <div id="sucessmessage" />
-                        <form onSubmit={handleSubmit}>
+                        <div id="sucessmessage">
+                            {submitted && (
+                                <div className="alert alert-success mb-4" role="alert" style={{ 
+                                    backgroundColor: '#D1FAE5', 
+                                    color: '#065F46', 
+                                    borderRadius: '5px',
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    border: '1px solid #A7F3D0'
+                                }}>
+                                    <i className="bi bi-check-circle-fill me-2"></i>
+                                    Thank you! Your message has been sent successfully.
+                                </div>
+                            )}
+                        </div>
+                        <form ref={form} onSubmit={handleSubmit}>
                             <div className="row g-3">
                                 <div className="col-md-6 mb-0">
                                     <input 
@@ -126,8 +163,9 @@ const ContactUs = () => {
                                     <button 
                                         type="submit" 
                                         className="btn btn-secondary btn-block"
+                                        disabled={loading}
                                     >
-                                        <span className="outer-wrap"><span data-text="Send a Message">Send a Message</span></span>
+                                        <span className="outer-wrap"><span data-text={loading ? "Sending..." : "Send a Message"}>{loading ? "Sending..." : "Send a Message"}</span></span>
                                     </button>
                                 </div>
                             </div>
