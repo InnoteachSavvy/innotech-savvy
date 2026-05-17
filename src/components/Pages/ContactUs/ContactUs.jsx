@@ -9,10 +9,8 @@ const ContactUs = () => {
     const [submitted, setSubmitted] = useState(false);
     const [formData, setFormData] = useState({
         first_name: '',
-        last_name: '',
-                email: '',
+        email: '',
         phone_number: '',
-
         message: ''
     });
 
@@ -36,7 +34,6 @@ const ContactUs = () => {
                 setSubmitted(true);
                 setFormData({
                     first_name: '',
-                    last_name: '',
                     phone_number: '',
                     email: '',
                     message: ''
@@ -71,105 +68,113 @@ const ContactUs = () => {
                     </div>
                     <div className="row">
                         <div className="col-xl-6 col-lg-9 col-md-12 mx-auto">
-                        <div id="sucessmessage">
-                            {submitted && (
-                                <div className="alert alert-success mb-4" role="alert" style={{ 
-                                    backgroundColor: '#D1FAE5', 
-                                    color: '#065F46', 
-                                    borderRadius: '5px',
-                                    fontSize: '14px',
-                                    fontWeight: '600',
-                                    border: '1px solid #A7F3D0'
-                                }}>
-                                    <i className="bi bi-check-circle-fill me-2"></i>
-                                    Thank you! Your message has been sent successfully.
-                                </div>
-                            )}
-                        </div>
-                        <form ref={form} onSubmit={handleSubmit}>
-                            <div className="row g-3">
-                                <div className="col-md-6 mb-0">
+                        <div className="p-4 rounded-4 shadow-sm" style={{ backgroundColor: '#F9FAFB', border: '1px solid #eee' }}>
+                            <div id="sucessmessage">
+                                {submitted && (
+                                    <div className="mb-4 p-3 text-center" style={{ 
+                                        backgroundColor: '#D1FAE5', 
+                                        color: '#065F46', 
+                                        borderRadius: '5px',
+                                        fontSize: '14px',
+                                        fontWeight: '600',
+                                        border: '1px solid #A7F3D0'
+                                    }}>
+                                        <i className="bi bi-check-circle-fill me-2"></i>
+                                        Thank you! Your message has been sent successfully.
+                                    </div>
+                                )}
+                            </div>
+                            <form ref={form} onSubmit={handleSubmit}>
+                                <div className="mb-3">
                                     <input 
-                                        className="form-control" 
+                                        className="form-control py-3 px-3 border-0" 
+                                        style={{ 
+                                            backgroundColor: '#F1F1F1', 
+                                            borderRadius: '5px',
+                                            fontStyle: 'italic',
+                                            fontSize: '14px'
+                                        }}
                                         type="text" 
-                                        id="First_Name" 
                                         name="first_name" 
-                                        placeholder="First Name*" 
+                                        placeholder="Your Name" 
                                         value={formData.first_name}
                                         onChange={handleChange}
                                         required
                                     />
                                 </div>
-                                <div className="col-md-6 mb-0">
+                               
+                                <div className="mb-3">
                                     <input 
-                                        className="form-control" 
-                                        type="text" 
-                                        id="Last_Name" 
-                                        name="last_name" 
-                                        placeholder="Last Name*" 
-                                        value={formData.last_name}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="col-md-6 mb-0">
-                                    <input 
-                                        className="form-control" 
+                                        className="form-control py-3 px-3 border-0" 
+                                        style={{ 
+                                            backgroundColor: '#F1F1F1', 
+                                            borderRadius: '5px',
+                                            fontStyle: 'italic',
+                                            fontSize: '14px'
+                                        }}
                                         type="email" 
-                                        id="Email_Address" 
                                         name="email" 
-                                        placeholder="Email Address*" 
+                                        placeholder="Email Address" 
                                         value={formData.email}
                                         onChange={handleChange}
                                         required 
                                     />
                                 </div>
-                                <div className="col-md-6 mb-0">
+                                <div className="mb-3">
                                     <input 
-                                        className="form-control" 
-                                        type="text"                                         
-                                        id="Phone_Number" 
+                                        className="form-control py-3 px-3 border-0" 
+                                        style={{ 
+                                            backgroundColor: '#F1F1F1', 
+                                            borderRadius: '5px',
+                                            fontStyle: 'italic',
+                                            fontSize: '14px'
+                                        }}
+                                        type="tel"                                         
                                         name="phone_number" 
                                         placeholder="Phone Number" 
                                         value={formData.phone_number}
                                         onChange={handleChange}
+                                        required
                                     />
                                 </div>
-                                {/* <div className="col-md-12 mb-0">
-                                    <select className="theme-combo select2-hidden-accessible" name="Combo_Box">
-                                        <option value>I interested in ...</option>
-                                        <option value>Colibri Creative Project</option>                                        
-                                        <option value>Colibri Project</option>
-                                        <option value>Happy Moments Photoset</option>
-                                        <option value>Luxury Car Website</option>
-                                        <option value>Funny Dog</option>
-                                        <option value>Creative Branding</option>
-                                    </select>
-                                </div> */}
-                                <div className="col-md-12 mb-0">
+                                <div className="mb-4">
                                     <textarea 
                                         name="message" 
-                                        id="Your_Message" 
-                                        rows={10} 
+                                        rows={6} 
                                         value={formData.message}
                                         onChange={handleChange}
                                         required
-                                        className="form-control" 
+                                        className="form-control py-3 px-3 border-0" 
+                                        style={{ 
+                                            backgroundColor: '#F1F1F1', 
+                                            borderRadius: '5px',
+                                            minHeight: '150px',
+                                            fontStyle: 'italic',
+                                            fontSize: '14px'
+                                        }}
                                         placeholder="Your Message" 
-                                        defaultValue={""} 
                                     />
                                 </div>
-                                <div className="col-md-12 d-grid gap-2">
+                                <div className="d-grid">
                                     <button 
                                         type="submit" 
-                                        className="btn btn-secondary btn-block"
+                                        className="btn w-100 py-3 text-white fw-bold"
                                         disabled={loading}
+                                        style={{ 
+                                            backgroundColor: '#FF7A50', 
+                                            borderRadius: '5px',
+                                            border: 'none',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '1px',
+                                            fontSize: '16px',
+                                            opacity: loading ? 0.7 : 1
+                                        }}
                                     >
-                                        <span className="outer-wrap"><span data-text={loading ? "Sending..." : "Send a Message"}>{loading ? "Sending..." : "Send a Message"}</span></span>
+                                        {loading ? 'Sending...' : 'Send a Message'}
                                     </button>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                         </div>
                     </div>
                     </div>
